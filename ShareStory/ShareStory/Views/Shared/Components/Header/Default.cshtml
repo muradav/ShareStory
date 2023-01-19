@@ -1,0 +1,73 @@
+﻿@model HeaderVM
+
+
+<nav class="navbar navbar-expand-lg px-5">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Anecdote</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                 @if (User.Identity.IsAuthenticated)
+                {
+                    if (Model.User.ImageUrl!=null)
+                    {
+                        <img src="~/assets/img/user/@Model.User.ImageUrl" style="width: 40px; border-radius:50%;" alt="">
+                    }
+                    else
+                    {
+                        <img src="~/assets/img/account.png" style="width: 40px; border-radius:50%;" alt="">
+                    }
+                        <span>@Model.User.Name @Model.User.Surname</span>
+                }
+                else
+                {
+                    <img src="~/assets/img/account.png" style="width: 40px;" alt="">
+                }      
+              </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="dropdown-menu">
+                    @if (User.IsInRole( "Admin"))
+                    {
+                    
+                       <li><a class="dropdown-item" asp-area="admin" asp-controller="dashboard" asp-action="index">Dashboard</a></li>
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="editprofile" asp-route-id="@Model.User.Id">My profile</a></li>
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="logout">Sign out</a></li>
+                    }
+                    else
+                    {
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="editprofile" asp-route-id="@Model.User.Id">My profile</a></li>
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="logout">Sign out</a></li>
+                    }
+                    </ul>
+                }
+                else
+                {
+                    <ul class="dropdown-menu">
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="login">Sign in</a></li>
+                       <li><a class="dropdown-item" asp-controller="account" asp-action="register">Sign up</a></li>
+                    </ul>
+                }
+                </li>
+          </ul>
+        </div>
+      </div>
+    </nav>

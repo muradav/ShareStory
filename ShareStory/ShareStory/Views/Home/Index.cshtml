@@ -1,0 +1,251 @@
+﻿@model HomeVM
+
+<div class="container-fluid bg-light pt-5">
+   <div class="row">
+     <div class="col-3"></div>
+     <div class="col-6">
+       <form method="post" asp-action="share" asp-controller="story">
+         <div class="mb-2">
+           <textarea
+             asp-for="Story.Topic"
+             class="form-control"
+             id="storyTextArea"
+             rows="3"
+             placeholder="Write your anecdote"
+             style="resize: none;"
+           ></textarea>
+         </div>
+         <div class="text-end">
+           <button type="submit" class="btn btn-dark">Share</button>
+         </div>
+       </form>
+       <div class="row">
+          @foreach (var item in Model.PagedLists)
+          {
+             if (item.isDeleted == false)
+             {  
+                <div class="card mt-5 mb-5 px-4">
+                   <div class="row">
+                     <div class="col-12 text-end mt-3">
+                         @if (User.Identity.IsAuthenticated)
+                         {
+                             if (@item.Author.ImageUrl!=null)
+                             {
+                                 <img src="~/assets/img/user/@item.Author.ImageUrl" class="d-inline" style="width: 40px; border-radius:50%;" alt="">
+                             }
+                             else
+                             {
+                                 <img src="~/assets/img/account.png" class="d-inline" style="width: 40px; border-radius:50%;" alt="">
+                             }
+                                 <h5 class="d-inline">@item.Author.Name @item.Author.Surname</h5>
+                         }
+                         else
+                         {
+                             <img src="~/assets/img/account.png" class="d-inline" style="width: 40px;" alt="">
+                         } 
+                       <p class="text-black-50">@String.Format("{0:dd MMM yyyy}", item.CreatedAt).ToString()</p>
+                     </div>
+                   </div>
+                   <div>
+                     <p>
+                       @item.Topic
+                     </p>
+                   </div>
+                   <hr />
+                   <div class="row">
+                     <div class="col-12 text-end">
+                       <ul class="text-black-50 list-unstyled">
+                         <li class="d-inline px-2">Like: <span class="likeCount">@item.LikeCount</span></li>
+                         <li class="d-inline">Comment: <span>@item.Comments.Count()</span></li>
+                       </ul>
+                     </div>
+                     <div class="col-12 mb-3">
+                         @if (!User.Identity.IsAuthenticated)
+                         {
+                           <a class="btn btn-sm btn-outline-success disabled" 
+                           >
+                             Like <i class="bi bi-hand-thumbs-up"></i>
+                           </a>
+                         }
+                         else if(@item.Likes.Any(x => x.LikedUser.UserName == User.Identity.Name && x.LikedStoryId == @item.Id))
+                         {
+                             <a 
+                                 href="javascript:void(0)" 
+                                 class="btn btn-sm btn-outline-danger unlike btnCheck"
+                                 data-id="@item.Id"
+                             >
+                             Unlike <i class="bi bi-hand-thumbs-down"></i>
+                             </a>
+                         }
+                         else
+                         {
+                             <a 
+                                 href="javascript:void(0)" 
+                                 class="btn btn-sm btn-outline-success like btnCheck" 
+                                 data-id="@item.Id"
+                             >
+                             Like <i class="bi bi-hand-thumbs-up"></i>
+                             </a>
+                         }
+
+                       <a href="#area_@item.Id" class="btn btn-sm btn-outline-info">
+                         Comment <i class="bi bi-chat-square-dots"></i>
+                       </a>
+                     </div>
+                   </div>
+                   <div class="card mt-5 mb-5 px-4">
+                     <h4 class="mt-2">Comments</h4>
+                         @for (int i = item.Comments.Count-1; i >= 0; i--)
+                         {
+                           if (@item.Comments[i].isDeleted == false)
+                             {
+                            @* <div class="my-3">
+                               <div class="row">
+                                 <div class="col-12 mt-3">
+                                    <div class="d-flex justify-content-end">
+                                       <a class="text-warning pe-2" style="cursor: pointer;"><i class="bi bi-pen"></i></a>
+                                       <a class="text-danger" style="cursor: pointer;"><i class="bi bi-trash"></i></a>
+                                     </div>
+                                    @if(@item.Comments[i].User.ImageUrl != null)
+                                    {
+                                       <img
+                                         src="./assets/img/user/@item.Comments[i].User.ImageUrl"
+                                         width="30px"
+                                         alt=""
+                                         class="d-inline"
+                                       />
+                                    }
+                                    else
+                                    {
+                                        <img
+                                         src="./assets/img/account.png"
+                                         width="30px"
+                                         alt=""
+                                         class="d-inline"
+                                       />
+                                    }
+                                      <h6 class="d-inline">@item.Comments[i].User.Name @item.Comments[i].User.Surname</h6>
+                                 </div>
+                               </div>
+                               <div class="mt-2 px-3 py-3 bg-light rounded-3">
+                                 <p>
+                                   @item.Comments[i].Content
+                                 </p>
+                               </div>
+                             </div> *@
+                           }
+                         }
+                     <div class="my-3">
+                         <form class="commentForm"  method="post" asp-action="sendcomment" asp-controller="comment">
+                            <div class="mb-2">
+                               <textarea
+                                 asp-for="@Model.Comment.Content"
+                                 class="form-control commentArea"
+                                 id="area_@item.Id"
+                                 rows="3"
+                                 placeholder="Your comment ..."
+                                 style="resize: none;"
+                               ></textarea>
+                               <input class="id" type="hidden" name="storyId" value="@item.Id"/>
+                            </div>
+                             <div class="text-end">
+                               <button type="submit" storyId="@item.Id" class="btn btn-dark sendComment">Send</button>
+                             </div>
+                           </form>
+                     </div>
+                   </div>
+                </div>
+             }
+          }
+           <div class="col-12">
+              <ul class="pagination justify-content-center mt-30">
+                  <li><a asp-route-page="@(Model.PagedLists.CurrentPage-1)">«</a></li>
+                       @for (var i = 1; i <= Model.PagedLists.TotalPages; i++)
+                       {
+                             <li class="ml-1 @(Model.PagedLists.CurrentPage==@i?"active":"")">
+                                 <a asp-route-page="@i">@i</a>
+                             </li>
+                       }
+                   <li><a asp-route-page="@(Model.PagedLists.CurrentPage+1)">»</a></li>
+              </ul>
+           </div>
+       </div>
+     </div>
+     <div class="col-3"></div>
+   </div>
+</div>
+
+
+@section Scripts{
+
+     <script>
+
+        var likeCount = $(".likeCount");
+
+        $(document).ready(function () {
+
+            $("a.btnCheck").each(function() {
+                $(this).click(function() {
+                    if($(this).hasClass("like")){
+                        var id = $(this).data("id");
+                        var link = "/story/likeaction/" + id;
+                        var a = $(this);
+                        $.ajax({
+                            type: "GET",
+                            url: link,
+                            success: function (result) {
+                                a.html('Unlike <i class="bi bi-hand-thumbs-down"></i>').removeClass("like btn-outline-success").addClass("unlike btn-outline-danger");
+                                likeCount.html("");
+                                likeCount.html(''+result.likeCount+'');
+                                return false;
+                            }
+                        });
+                    }
+                    if($(this).hasClass("unlike")){
+                        var id = $(this).data("id");
+                        var link = "/story/unlikeaction/" + id;
+                        var a = $(this);
+                        $.ajax({
+                            type: "GET",
+                            url: link,
+                            success: function(result) {
+                                a.html('Like <i class="bi bi-hand-thumbs-up"></i>').removeClass("unlike btn-outline-danger").addClass("like btn-outline-success");
+                                likeCount.html("");
+                                likeCount.html('' + result.likeCount + '');
+                                return false;
+                            }
+                        });
+                    }
+                });
+            });
+
+            
+
+            ////COMMENT
+            //$(".sendComment").each(function() {
+            //    $(this).click(function(e) {
+            //        e.preventDefault();
+            //        var commentVal = $(this).parent().parent().children().first().children().first().val();
+            //        var commentArea = $(this).parent().parent().parent().parent();
+            //        var storyId = $(this).attr("storyId");
+            //        var link = `/comment/sendcomment/${storyId}/${commentVal}`
+            //        $.ajax({
+            //            type: "POST",
+            //            url: link,
+            //            success: function(result) {
+            //                console.log(result);
+            //                commentArea.prepent(`
+                             
+                            
+                            
+            //                `)
+            //            }
+            //        });
+            //    });
+            //});
+
+        });
+     </script>
+
+}
+

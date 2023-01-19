@@ -1,0 +1,10 @@
+﻿@model Story
+
+
+<a class="btn btn-sm btn-outline-danger unlike" 
+  asp-controller="story"
+  asp-action="unlikeaction"
+  asp-route-id="@Model.Id"
+>
+Unlike <i class="bi bi-hand-thumbs-down"></i>
+</a>

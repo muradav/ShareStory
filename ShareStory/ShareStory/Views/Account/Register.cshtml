@@ -1,0 +1,89 @@
+﻿
+@model RegisterVM
+
+
+
+<div class="hero inner-page">
+  <div class="container">
+    <div class="row align-items-end ">
+      <div class="col-lg-5">
+        <div class="intro">
+          <h1><strong>Qeydiyyat</strong></h1>
+          <div class="custom-breadcrumbs"><a asp-controller="home" asp-action="index">Əsas səhifə</a> <span class="mx-2">/</span> <strong>Qeydiyyat</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="register-area pt-10 my-5">
+    <div class="container-fluid custom-container pt-5 pb-5 bg-light">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="login-register-wrapper mt-30">
+                    <h4 class="allup-title">Yeni hesab yarat</h4>
+                    <p class="mt-10">Hesabınız var? <a asp-action="login">Daxil ol</a></p>
+                    <form method="post">
+                        <div class="single-form my-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="Name" placeholder="Ad" autocomplete="off" style="width:75%;" />
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="single-form mb-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="Surname" placeholder="Soyad" autocomplete="off" style="width:75%;" />
+                            <span class="text-danger" asp-validation-for="Surname"></span>
+                        </div>
+                        <div class="single-form mb-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="Username" placeholder="İstifadəçi adı" autocomplete="off" style="width:75%;" />
+                            <span class="text-danger" asp-validation-for="Username"></span>
+                        </div>
+                        <div class="single-form mb-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="Email" placeholder="Elektron poçt" autocomplete="off" style="width:75%;" />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                         <div class="single-form mb-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="PhoneNumber" type="tel" id="phone" placeholder="Telefon" autocomplete="off" style="width:75%;" />
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="single-form my-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="Password" placeholder="Şifrə" style="width:75%;" id="password">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                            <div class="custom-checkbox">
+                                <input type="checkbox" id="showPassword">
+                                <label for="showPassword">Şifrəni göstər</label>
+                            </div>
+                        </div>
+                        <div class="single-form my-4" style=" flex-direction: column; display: flex;">
+                            <input asp-for="RepeatPassword" placeholder="Təkrar Şifrə" style="width:75%;" id="rePassword">
+                            <span class="text-danger" asp-validation-for="RepeatPassword"></span>
+                            <div class="custom-checkbox">
+                                <input type="checkbox" id="showRePassword">
+                                <label for="showRePassword">Şifrəni göstər</label>
+                            </div>
+                        </div>
+                        <div class="single-form">
+                            <button type="submit" class="btn btn-dark">Qeydiyyatdan keç</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#showPassword').click(function () {  
+                $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');  
+            });
+        });
+        
+        $(function () {
+            $('#showRePassword').click(function () {  
+                $('#rePassword').attr('type', $(this).is(':checked') ? 'text' : 'password');  
+            });
+        });
+    </script>
+}

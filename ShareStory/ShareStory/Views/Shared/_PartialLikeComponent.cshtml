@@ -1,0 +1,11 @@
+﻿@model Story
+
+
+
+<a class="btn btn-sm btn-outline-success like" 
+ asp-controller="story"
+ asp-action="likeaction"
+ asp-route-id="@Model.Id"
+>
+Like <i class="bi bi-hand-thumbs-up"></i>
+</a>

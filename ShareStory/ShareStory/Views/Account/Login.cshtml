@@ -1,0 +1,81 @@
+﻿@model LoginVM
+
+@{
+    <style>
+    .google-icon {
+       margin-left: 11px;
+       width: 25px;
+       height: 25px;
+    }
+    </style>
+}
+
+<div class="hero inner-page">
+        
+  <div class="container">
+    <div class="row align-items-end ">
+      <div class="col-lg-5">
+
+        <div class="intro">
+          <h1><strong>Daxil Ol</strong></h1>
+          <div class="custom-breadcrumbs"><a asp-controller="home" asp-action="index">Əsas səhifə</a> <span class="mx-2">/</span> <strong>Daxil ol</strong></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="login-area pt-10 my-5">
+    <div class="container-fluid custom-container pt-5 pb-5 bg-light">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="login-register-wrapper mt-30">
+                    <h4 class="allup-title"><strong>Daxil ol</strong></h4>
+                    <form method="post">
+                        <span class="text-danger fw-bold">@Html.ValidationMessage("Error")</span>
+                        <div class="single-form my-3" style=" flex-direction: column; display: flex;">
+                            <label asp-for="Email">Elektron poçt ünvanı</label>
+                            <input asp-for="Email" placeholder="E-poçt " autocomplete="off" style="width:75%;">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <div class="single-form my-3" style=" flex-direction: column; display: flex;">
+                            <label asp-for="Password">Şifrə</label>
+                            <input asp-for="Password" placeholder="Şifrə" style="width:75%;" id="password" autocomplete="off">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                            <div class="custom-checkbox">
+                                <input type="checkbox" id="showPassword" onclick="showpass(this);">
+                                <label for="showPassword">Şifrəni göstər</label>
+                            </div>
+                        </div>
+                        <div class="custom-checkbox mt-30">
+                            <input asp-for="RememberMe" type="checkbox" id="account">
+                            <label asp-for="RememberMe" for="account">Məni xatırla</label>
+                        </div>
+                        <div class="single-form">
+                            <button type="submit" class="btn btn-dark">Daxil ol</button>
+                        </div>
+                    </form>
+                    <div id="authsStatus"></div>
+                    <p class="mt-20"><a asp-action="forgotPassword" >Şifrəni unutmusunuz?</a></p>
+                    <a asp-controller="auth" asp-action="googleLogin">
+                        <img class="google-icon"
+                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                    </a>
+                    <p class="mt-10">Hesabınız yoxdur? <a asp-action="register">Qeydiyyatdan keç</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#showPassword').click(function () {  
+                $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');  
+            });
+        });
+    </script>
+}

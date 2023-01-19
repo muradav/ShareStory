@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "Hash": "scSBPm5AKjZHeYsm518diXfFQvF4mD5LUPRs1QIwPoI=",
+  "Source": "ShareStory",
+  "BasePath": "_content/ShareStory",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ShareStory\\wwwroot",
+      "Source": "ShareStory",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\",
+      "BasePath": "_content/ShareStory",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\assets\\css\\style.css",
+      "SourceId": "ShareStory",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\",
+      "BasePath": "_content/ShareStory",
+      "RelativePath": "assets/css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\assets\\img\\account.png",
+      "SourceId": "ShareStory",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\",
+      "BasePath": "_content/ShareStory",
+      "RelativePath": "assets/img/account.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\account.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\assets\\js\\script.js",
+      "SourceId": "ShareStory",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Development\\ShareStory\\ShareStory\\ShareStory\\wwwroot\\",
+      "BasePath": "_content/ShareStory",
+      "RelativePath": "assets/js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\script.js"
+    }
+  ]
+}
